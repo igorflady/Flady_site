@@ -92,7 +92,12 @@ permalink: /artigos.html
 
 
 
-  <div class="article-grid">
+  <!-- ARTIGOS PRINCIPAIS -->
+
+  <div
+    class="article-grid"
+    id="artigos-principais"
+  >
 
 
     {% assign artigosOrdenados = collections.artigos | reverse %}
@@ -115,6 +120,17 @@ permalink: /artigos.html
         {% else %}
 
           data-categorias=""
+
+        {% endif %}
+
+
+        {% if artigo.data.related_categories %}
+
+          data-relacionadas="{{ artigo.data.related_categories | join: '|' }}"
+
+        {% else %}
+
+          data-relacionadas=""
 
         {% endif %}
       >
@@ -203,13 +219,53 @@ permalink: /artigos.html
 
 
 
+  <!-- MENSAGEM QUANDO NÃO EXISTEM ARTIGOS PRINCIPAIS -->
+
   <p
     class="muted"
     id="nenhum-artigo"
     style="display:none"
   >
-    Nenhum artigo encontrado nesta categoria.
+    Ainda não há publicações diretamente nesta categoria.
   </p>
+
+
+
+  <!-- ARTIGOS RELACIONADOS -->
+
+  <section
+    id="secao-relacionados"
+    class="relacionados-categoria"
+    style="display:none"
+  >
+
+
+    <div class="relacionados-cabecalho">
+
+      <p class="eyebrow">
+        OUTRAS CONEXÕES
+      </p>
+
+      <h2 id="titulo-relacionados">
+        Também relacionado
+      </h2>
+
+      <p class="muted">
+        Outros conteúdos que dialogam com este tema.
+      </p>
+
+    </div>
+
+
+
+    <div
+      class="article-grid"
+      id="artigos-relacionados"
+    >
+    </div>
+
+
+  </section>
 
 
 </main>
@@ -262,6 +318,7 @@ permalink: /artigos.html
 
 <script>
 
+
   const parametros =
     new URLSearchParams(window.location.search);
 
@@ -270,11 +327,26 @@ permalink: /artigos.html
     parametros.get("categoria");
 
 
+
   if (categoriaSelecionada) {
 
 
+    const containerPrincipais =
+      document.querySelector("#artigos-principais");
+
+
+    const containerRelacionados =
+      document.querySelector("#artigos-relacionados");
+
+
+    const secaoRelacionados =
+      document.querySelector("#secao-relacionados");
+
+
     const artigos =
-      document.querySelectorAll(".artigo-item");
+      Array.from(
+        document.querySelectorAll(".artigo-item")
+      );
 
 
     const titulo =
@@ -289,7 +361,21 @@ permalink: /artigos.html
       document.querySelector("#nenhum-artigo");
 
 
-    let artigosEncontrados = 0;
+    const tituloRelacionados =
+      document.querySelector("#titulo-relacionados");
+
+
+    const categoriaProcurada =
+      categoriaSelecionada
+        .trim()
+        .toLowerCase();
+
+
+
+    let artigosPrincipaisEncontrados = 0;
+
+    let artigosRelacionadosEncontrados = 0;
+
 
 
     titulo.textContent =
@@ -302,35 +388,72 @@ permalink: /artigos.html
       ".";
 
 
+    tituloRelacionados.textContent =
+      "Também relacionado a " +
+      categoriaSelecionada;
+
+
 
     artigos.forEach(artigo => {
 
 
-      const categoriasArtigo =
+      const categoriasPrincipais =
         artigo.dataset.categorias
           .split("|")
           .map(categoria =>
             categoria.trim().toLowerCase()
-          );
+          )
+          .filter(Boolean);
 
 
-      const categoriaProcurada =
-        categoriaSelecionada
-          .trim()
-          .toLowerCase();
+      const categoriasRelacionadas =
+        artigo.dataset.relacionadas
+          .split("|")
+          .map(categoria =>
+            categoria.trim().toLowerCase()
+          )
+          .filter(Boolean);
 
 
 
-      if (
-        categoriasArtigo.includes(
+      const pertenceCategoria =
+        categoriasPrincipais.includes(
           categoriaProcurada
-        )
-      ) {
+        );
+
+
+      const relacionadoCategoria =
+        categoriasRelacionadas.includes(
+          categoriaProcurada
+        );
+
+
+
+      if (pertenceCategoria) {
 
 
         artigo.style.display = "";
 
-        artigosEncontrados++;
+        containerPrincipais.appendChild(
+          artigo
+        );
+
+
+        artigosPrincipaisEncontrados++;
+
+
+      } else if (relacionadoCategoria) {
+
+
+        artigo.style.display = "";
+
+
+        containerRelacionados.appendChild(
+          artigo
+        );
+
+
+        artigosRelacionadosEncontrados++;
 
 
       } else {
@@ -346,7 +469,9 @@ permalink: /artigos.html
 
 
 
-    if (artigosEncontrados === 0) {
+    if (
+      artigosPrincipaisEncontrados === 0
+    ) {
 
 
       mensagemVazia.style.display =
@@ -363,7 +488,28 @@ permalink: /artigos.html
     }
 
 
+
+    if (
+      artigosRelacionadosEncontrados > 0
+    ) {
+
+
+      secaoRelacionados.style.display =
+        "block";
+
+
+    } else {
+
+
+      secaoRelacionados.style.display =
+        "none";
+
+
+    }
+
+
   }
+
 
 </script>
 
