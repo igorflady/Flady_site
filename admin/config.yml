@@ -27,8 +27,8 @@ collections:
         name: "date"
         widget: "datetime"
 
-      - label: "Categoria"
-        name: "category"
+      - label: "Categorias principais"
+        name: "categories"
         widget: "relation"
         collection: "categorias"
         search_fields:
@@ -36,6 +36,22 @@ collections:
         value_field: "nome"
         display_fields:
           - "nome"
+        multiple: true
+        min: 1
+        hint: "Escolha uma ou mais categorias às quais este conteúdo pertence diretamente."
+
+      - label: "Temas relacionados"
+        name: "related_categories"
+        widget: "relation"
+        collection: "categorias"
+        search_fields:
+          - "nome"
+        value_field: "nome"
+        display_fields:
+          - "nome"
+        multiple: true
+        required: false
+        hint: "Escolha temas que tenham relação com o conteúdo, mesmo que não sejam o foco principal."
 
       - label: "Descrição"
         name: "description"
@@ -46,6 +62,12 @@ collections:
         widget: "image"
         required: false
 
+      - label: "Arquivo PDF"
+        name: "pdf"
+        widget: "file"
+        required: false
+        hint: "Opcional. Anexe um artigo, pesquisa ou outro documento em PDF."
+
       - label: "Artigo em destaque"
         name: "featured"
         widget: "boolean"
@@ -54,6 +76,8 @@ collections:
       - label: "Conteúdo do artigo"
         name: "body"
         widget: "markdown"
+        required: false
+        hint: "Escreva o conteúdo completo ou uma apresentação/resumo caso tenha anexado um PDF."
 
 
   - name: "categorias"
