@@ -1,8 +1,4 @@
 ---
-pagination:
-  data: collections.artigos
-  size: 100
-  alias: artigos
 permalink: /artigos.html
 ---
 
@@ -38,158 +34,267 @@ permalink: /artigos.html
   >
 
   <link rel="stylesheet" href="/styles.css">
+
 </head>
 
 
 <body>
 
-  <header class="site-header">
 
-    <a
-      class="brand"
-      href="/"
-    >
-      Flady
+<header class="site-header">
+
+  <a
+    class="brand"
+    href="/"
+  >
+    Flady
+  </a>
+
+
+  <nav class="nav">
+
+    <a href="/">
+      Início
     </a>
 
-    <nav class="nav">
+    <a
+      href="/artigos.html"
+      class="active"
+    >
+      Artigos
+    </a>
 
-      <a href="/">
-        Início
-      </a>
+  </nav>
 
-      <a
-        href="/artigos.html"
-        class="active"
+</header>
+
+
+
+<main class="section">
+
+
+  <p class="eyebrow">
+    ARQUIVO
+  </p>
+
+
+  <h1 class="pagina-titulo">
+    Todos os artigos
+  </h1>
+
+
+  <p
+    class="muted"
+    id="descricao-lista"
+  >
+    Textos, reflexões e ideias publicadas no Flady.
+  </p>
+
+
+
+  <div class="article-grid">
+
+
+    {% for artigo in collections.artigos | reverse %}
+
+
+      <article
+        class="card artigo-item"
+        data-categoria="{{ artigo.data.category }}"
       >
-        Artigos
-      </a>
-
-    </nav>
-
-  </header>
 
 
-  <main class="section">
+        {% if artigo.data.image %}
 
-    <p class="eyebrow">
-      ARQUIVO
-    </p>
+          <img
+            class="card-image"
+            src="{{ artigo.data.image }}"
+            alt="Imagem de capa de {{ artigo.data.title }}"
+          >
 
-    <h1 class="pagina-titulo">
-      Todos os artigos
-    </h1>
+        {% else %}
 
-    <p class="muted">
-      Textos, reflexões e ideias publicadas no Flady.
-    </p>
+          <div
+            class="card-image image-reflexoes"
+          ></div>
+
+        {% endif %}
 
 
-    <div class="article-grid">
 
-      {% for artigo in collections.artigos | reverse %}
+        <div class="card-body">
 
-        <article class="card">
 
-          {% if artigo.data.image %}
+          <span class="tag">
+            {{ artigo.data.category }}
+          </span>
 
-            <img
-              class="card-image"
-              src="{{ artigo.data.image }}"
-              alt="Imagem de capa de {{ artigo.data.title }}"
-            >
 
-          {% else %}
+          <h3>
+            {{ artigo.data.title }}
+          </h3>
 
-            <div class="card-image image-reflexoes"></div>
+
+          {% if artigo.data.description %}
+
+            <p>
+              {{ artigo.data.description }}
+            </p>
 
           {% endif %}
 
 
-          <div class="card-body">
-
-            <span class="tag">
-              {{ artigo.data.category }}
-            </span>
-
-
-            <h3>
-              {{ artigo.data.title }}
-            </h3>
+          <a
+            class="button"
+            href="{{ artigo.url }}"
+          >
+            Ler artigo →
+          </a>
 
 
-            {% if artigo.data.description %}
-
-              <p>
-                {{ artigo.data.description }}
-              </p>
-
-            {% endif %}
+        </div>
 
 
-            <a
-              class="button"
-              href="{{ artigo.url }}"
-            >
-              Ler artigo →
-            </a>
+      </article>
 
-          </div>
 
-        </article>
+    {% endfor %}
 
-      {% endfor %}
 
+  </div>
+
+
+
+  <p
+    class="muted"
+    id="nenhum-artigo"
+    style="display:none"
+  >
+    Nenhum artigo encontrado nesta categoria.
+  </p>
+
+
+</main>
+
+
+
+<footer>
+
+
+  <div>
+
+    <div class="brand">
+      Flady
     </div>
 
+    <p>
+      Igor Ribeiro
+    </p>
 
-    {% if collections.artigos.length == 0 %}
-
-      <p class="muted">
-        Nenhum artigo publicado ainda.
-      </p>
-
-    {% endif %}
-
-  </main>
+  </div>
 
 
-  <footer>
 
-    <div>
-
-      <div class="brand">
-        Flady
-      </div>
-
-      <p>
-        Igor Ribeiro
-      </p>
-
-    </div>
+  <blockquote>
+    “Escrever é organizar o silêncio
+    e transformar pensamento em mundo.”
+  </blockquote>
 
 
-    <blockquote>
-      “Escrever é organizar o silêncio
-      e transformar pensamento em mundo.”
-    </blockquote>
+
+  <div>
+
+    <p>
+      Artigos, reflexões e criações.
+    </p>
+
+  </div>
 
 
-    <div>
 
-      <p>
-        Artigos, reflexões e criações.
-      </p>
-
-    </div>
+  <small>
+    © 2026 Flady.
+    Todos os direitos reservados.
+  </small>
 
 
-    <small>
-      © 2026 Flady.
-      Todos os direitos reservados.
-    </small>
+</footer>
 
-  </footer>
+
+
+<script>
+
+  const parametros =
+    new URLSearchParams(window.location.search);
+
+  const categoriaSelecionada =
+    parametros.get("categoria");
+
+
+  if (categoriaSelecionada) {
+
+    const artigos =
+      document.querySelectorAll(".artigo-item");
+
+    const titulo =
+      document.querySelector(".pagina-titulo");
+
+    const descricao =
+      document.querySelector("#descricao-lista");
+
+    const mensagemVazia =
+      document.querySelector("#nenhum-artigo");
+
+
+    let artigosEncontrados = 0;
+
+
+    titulo.textContent =
+      categoriaSelecionada;
+
+
+    descricao.textContent =
+      "Artigos publicados na categoria " +
+      categoriaSelecionada +
+      ".";
+
+
+    artigos.forEach(artigo => {
+
+      const categoriaArtigo =
+        artigo.dataset.categoria;
+
+
+      if (
+        categoriaArtigo
+          .toLowerCase() ===
+        categoriaSelecionada
+          .toLowerCase()
+      ) {
+
+        artigo.style.display = "";
+
+        artigosEncontrados++;
+
+      } else {
+
+        artigo.style.display = "none";
+
+      }
+
+    });
+
+
+    if (artigosEncontrados === 0) {
+
+      mensagemVazia.style.display = "block";
+
+    }
+
+  }
+
+</script>
+
 
 </body>
 
