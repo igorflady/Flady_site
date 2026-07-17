@@ -95,12 +95,28 @@ permalink: /artigos.html
   <div class="article-grid">
 
 
-    {% for artigo in collections.artigos | reverse %}
+    {% assign artigosOrdenados = collections.artigos | reverse %}
+
+
+    {% for artigo in artigosOrdenados %}
 
 
       <article
         class="card artigo-item"
-        data-categoria="{{ artigo.data.category }}"
+
+        {% if artigo.data.categories %}
+
+          data-categorias="{{ artigo.data.categories | join: '|' }}"
+
+        {% elsif artigo.data.category %}
+
+          data-categorias="{{ artigo.data.category }}"
+
+        {% else %}
+
+          data-categorias=""
+
+        {% endif %}
       >
 
 
@@ -125,9 +141,31 @@ permalink: /artigos.html
         <div class="card-body">
 
 
-          <span class="tag">
-            {{ artigo.data.category }}
-          </span>
+          <!-- CATEGORIAS PRINCIPAIS -->
+
+          {% if artigo.data.categories %}
+
+            <div class="card-tags">
+
+              {% for categoria in artigo.data.categories %}
+
+                <span class="tag">
+                  {{ categoria }}
+                </span>
+
+              {% endfor %}
+
+            </div>
+
+
+          {% elsif artigo.data.category %}
+
+            <span class="tag">
+              {{ artigo.data.category }}
+            </span>
+
+          {% endif %}
+
 
 
           <h3>
@@ -227,20 +265,25 @@ permalink: /artigos.html
   const parametros =
     new URLSearchParams(window.location.search);
 
+
   const categoriaSelecionada =
     parametros.get("categoria");
 
 
   if (categoriaSelecionada) {
 
+
     const artigos =
       document.querySelectorAll(".artigo-item");
+
 
     const titulo =
       document.querySelector(".pagina-titulo");
 
+
     const descricao =
       document.querySelector("#descricao-lista");
+
 
     const mensagemVazia =
       document.querySelector("#nenhum-artigo");
@@ -259,37 +302,66 @@ permalink: /artigos.html
       ".";
 
 
+
     artigos.forEach(artigo => {
 
-      const categoriaArtigo =
-        artigo.dataset.categoria;
+
+      const categoriasArtigo =
+        artigo.dataset.categorias
+          .split("|")
+          .map(categoria =>
+            categoria.trim().toLowerCase()
+          );
+
+
+      const categoriaProcurada =
+        categoriaSelecionada
+          .trim()
+          .toLowerCase();
+
 
 
       if (
-        categoriaArtigo
-          .toLowerCase() ===
-        categoriaSelecionada
-          .toLowerCase()
+        categoriasArtigo.includes(
+          categoriaProcurada
+        )
       ) {
+
 
         artigo.style.display = "";
 
         artigosEncontrados++;
 
+
       } else {
+
 
         artigo.style.display = "none";
 
+
       }
+
 
     });
 
 
+
     if (artigosEncontrados === 0) {
 
-      mensagemVazia.style.display = "block";
+
+      mensagemVazia.style.display =
+        "block";
+
+
+    } else {
+
+
+      mensagemVazia.style.display =
+        "none";
+
 
     }
+
 
   }
 
