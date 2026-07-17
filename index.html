@@ -53,12 +53,95 @@ permalink: /index.html
   </button>
 
   <nav class="nav">
-    <a href="#inicio">Início</a>
-    <a href="#artigos">Artigos</a>
-    <a href="#categorias">Categorias</a>
-    <a href="#sobre">Sobre</a>
-    <a href="#contato">Contato</a>
+
+    <a href="#inicio">
+      Início
+    </a>
+
+    <a href="#artigos">
+      Artigos
+    </a>
+
+    <button
+      class="busca-menu"
+      id="abrir-busca"
+      type="button"
+      aria-expanded="false"
+      aria-controls="painel-busca"
+    >
+      Busca
+    </button>
+
+    <a href="#categorias">
+      Categorias
+    </a>
+
+    <a href="#sobre">
+      Sobre
+    </a>
+
+    <a href="#contato">
+      Contato
+    </a>
+
   </nav>
+
+
+  <!-- PAINEL DE BUSCA -->
+
+  <div
+    class="painel-busca"
+    id="painel-busca"
+    hidden
+  >
+
+    <div class="painel-busca-cabecalho">
+
+      <span>
+        BUSCAR NO FLADY
+      </span>
+
+      <button
+        class="fechar-busca"
+        id="fechar-busca"
+        type="button"
+        aria-label="Fechar busca"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="campo-busca">
+
+      <span aria-hidden="true">
+        ⌕
+      </span>
+
+      <input
+        type="search"
+        id="campo-pesquisa"
+        placeholder="Digite o que você procura..."
+        autocomplete="off"
+        aria-label="Pesquisar publicações"
+      >
+
+    </div>
+
+
+    <div
+      class="resultados-busca"
+      id="resultados-busca"
+    >
+
+      <p class="busca-instrucao">
+        Pesquise pelo título ou assunto de uma publicação.
+      </p>
+
+    </div>
+
+  </div>
 
 </header>
 
@@ -392,6 +475,28 @@ permalink: /index.html
 
 
 
+<!-- DADOS PARA A BUSCA -->
+
+<div
+  id="dados-busca"
+  hidden
+>
+
+  {% for artigo in collections.artigos %}
+
+    <div
+      class="item-busca"
+      data-titulo="{{ artigo.data.title | escape }}"
+      data-descricao="{{ artigo.data.description | default: '' | escape }}"
+      data-url="{{ artigo.url }}"
+    ></div>
+
+  {% endfor %}
+
+</div>
+
+
+
 <!-- NETLIFY IDENTITY -->
 
 <script
@@ -403,6 +508,232 @@ permalink: /index.html
 <!-- SCRIPT PRINCIPAL -->
 
 <script src="/script.js"></script>
+
+
+
+<!-- SISTEMA DE BUSCA -->
+
+<script>
+
+  const botaoAbrirBusca =
+    document.querySelector("#abrir-busca");
+
+  const botaoFecharBusca =
+    document.querySelector("#fechar-busca");
+
+  const painelBusca =
+    document.querySelector("#painel-busca");
+
+  const campoPesquisa =
+    document.querySelector("#campo-pesquisa");
+
+  const resultadosBusca =
+    document.querySelector("#resultados-busca");
+
+  const itensBusca =
+    Array.from(
+      document.querySelectorAll(".item-busca")
+    );
+
+
+  function normalizarTexto(texto) {
+
+    return texto
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim();
+
+  }
+
+
+  function abrirBusca() {
+
+    painelBusca.hidden = false;
+
+    botaoAbrirBusca.setAttribute(
+      "aria-expanded",
+      "true"
+    );
+
+    setTimeout(() => {
+      campoPesquisa.focus();
+    }, 50);
+
+  }
+
+
+  function fecharBusca() {
+
+    painelBusca.hidden = true;
+
+    botaoAbrirBusca.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+
+  }
+
+
+  botaoAbrirBusca.addEventListener(
+    "click",
+    evento => {
+
+      evento.stopPropagation();
+
+      if (painelBusca.hidden) {
+
+        abrirBusca();
+
+      } else {
+
+        fecharBusca();
+
+      }
+
+    }
+  );
+
+
+  botaoFecharBusca.addEventListener(
+    "click",
+    fecharBusca
+  );
+
+
+  painelBusca.addEventListener(
+    "click",
+    evento => {
+
+      evento.stopPropagation();
+
+    }
+  );
+
+
+  document.addEventListener(
+    "click",
+    () => {
+
+      if (!painelBusca.hidden) {
+
+        fecharBusca();
+
+      }
+
+    }
+  );
+
+
+  document.addEventListener(
+    "keydown",
+    evento => {
+
+      if (
+        evento.key === "Escape" &&
+        !painelBusca.hidden
+      ) {
+
+        fecharBusca();
+
+      }
+
+    }
+  );
+
+
+  campoPesquisa.addEventListener(
+    "input",
+    () => {
+
+
+      const termo =
+        normalizarTexto(
+          campoPesquisa.value
+        );
+
+
+      resultadosBusca.innerHTML = "";
+
+
+      if (!termo) {
+
+        resultadosBusca.innerHTML =
+          '<p class="busca-instrucao">' +
+          'Pesquise pelo título ou assunto de uma publicação.' +
+          '</p>';
+
+        return;
+
+      }
+
+
+      const encontrados =
+        itensBusca
+          .filter(item => {
+
+            const titulo =
+              normalizarTexto(
+                item.dataset.titulo
+              );
+
+            const descricao =
+              normalizarTexto(
+                item.dataset.descricao
+              );
+
+            return (
+              titulo.includes(termo) ||
+              descricao.includes(termo)
+            );
+
+          })
+          .slice(0, 3);
+
+
+      if (encontrados.length === 0) {
+
+        resultadosBusca.innerHTML =
+          '<p class="busca-vazia">' +
+          'Nenhum conteúdo encontrado.' +
+          '</p>';
+
+        return;
+
+      }
+
+
+      encontrados.forEach(item => {
+
+
+        const link =
+          document.createElement("a");
+
+
+        link.className =
+          "resultado-busca-item";
+
+
+        link.href =
+          item.dataset.url;
+
+
+        link.textContent =
+          item.dataset.titulo;
+
+
+        resultadosBusca.appendChild(
+          link
+        );
+
+
+      });
+
+
+    }
+  );
+
+</script>
 
 
 
