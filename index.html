@@ -426,13 +426,111 @@ permalink: /index.html
   </section>
 
 
+
+  <!-- CONTATO E REDES SOCIAIS -->
+
+  <section
+    class="section contato"
+    id="contato"
+  >
+
+    <div class="contato-cabecalho">
+
+      <p class="eyebrow">
+        CONTATO
+      </p>
+
+      <h2>
+        Vamos nos conectar.
+      </h2>
+
+      <p class="muted">
+        Acompanhe minhas publicações e outros projetos
+        ou entre em contato através das minhas redes.
+      </p>
+
+    </div>
+
+
+    <div class="contato-grid">
+
+      {% for contato in collections.contatos %}
+
+        <div class="contato-item">
+
+
+          <!-- IMAGEM APENAS VISUAL -->
+
+          {% if contato.data.imagem %}
+
+            <div class="contato-icone">
+
+              <img
+                src="{{ contato.data.imagem }}"
+                alt=""
+                aria-hidden="true"
+              >
+
+            </div>
+
+          {% endif %}
+
+
+          <div class="contato-informacoes">
+
+            <span class="contato-nome">
+              {{ contato.data.nome }}
+            </span>
+
+
+            {% if contato.data.descricao %}
+
+              <span class="contato-descricao">
+                {{ contato.data.descricao }}
+              </span>
+
+            {% endif %}
+
+          </div>
+
+
+          <a
+            class="contato-acessar"
+            href="{{ contato.data.link }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Acessar {{ contato.data.nome }}"
+          >
+            Acessar
+            <span aria-hidden="true">↗</span>
+          </a>
+
+
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+
+    {% if collections.contatos.length == 0 %}
+
+      <p class="muted">
+        Os canais de contato serão adicionados em breve.
+      </p>
+
+    {% endif %}
+
+  </section>
+
+
 </main>
 
 
 
-<!-- CONTATO -->
+<!-- RODAPÉ -->
 
-<footer id="contato">
+<footer>
 
   <div>
 
@@ -456,11 +554,7 @@ permalink: /index.html
   <div>
 
     <p>
-      Contato e redes sociais
-    </p>
-
-    <p class="muted">
-      Adicione seus links aqui.
+      Artigos, reflexões e criações.
     </p>
 
   </div>
