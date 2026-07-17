@@ -35,6 +35,9 @@ permalink: /index.html
 
 <body>
 
+
+<!-- CABEÇALHO -->
+
 <header class="site-header">
 
   <a class="brand" href="#inicio">
@@ -92,7 +95,10 @@ permalink: /index.html
         que desperta questionamentos e inspira novas perspectivas.
       </p>
 
-      <a class="button" href="#artigos">
+      <a
+        class="button"
+        href="#artigos"
+      >
         Explorar artigos <span>→</span>
       </a>
 
@@ -102,9 +108,12 @@ permalink: /index.html
 
 
 
-  <!-- ARTIGOS MAIS RECENTES -->
+  <!-- ARTIGOS RECENTES -->
 
-  <section class="section" id="artigos">
+  <section
+    class="section"
+    id="artigos"
+  >
 
     <div class="section-heading">
 
@@ -137,7 +146,9 @@ permalink: /index.html
 
             {% else %}
 
-              <div class="card-image image-reflexoes"></div>
+              <div
+                class="card-image image-reflexoes"
+              ></div>
 
             {% endif %}
 
@@ -152,7 +163,6 @@ permalink: /index.html
                 {{ artigo.data.title }}
               </h3>
 
-
               {% if artigo.data.description %}
 
                 <p>
@@ -160,7 +170,6 @@ permalink: /index.html
                 </p>
 
               {% endif %}
-
 
               <a
                 class="button"
@@ -208,14 +217,22 @@ permalink: /index.html
 
       {% for categoria in collections.categorias %}
 
-        <a href="/artigos.html?categoria={{ categoria.data.nome | url_encode }}">
+        <a
+          href="/artigos.html?categoria={{ categoria.data.nome | url_encode }}"
+        >
 
           <b>
+
             {% if categoria.data.icone %}
+
               {{ categoria.data.icone }}
+
             {% else %}
+
               ◇
+
             {% endif %}
+
           </b>
 
           <span>
@@ -243,331 +260,6 @@ permalink: /index.html
 
   <!-- SOBRE -->
 
-  <section class="section" id="sobre">
-
-    <div class="about">
-
-      <div class="avatar">
-        IR
-      </div>
-
-      <div>
-
-        <p class="eyebrow">
-          SOBRE O AUTOR
-        </p>
-
-        <h2>
-          Igor Ribeiro <em>(Flady)</em>
-        </h2>
-
-        <p>
-          Estudante de Direito e apaixonado por escrever.
-          Este é um espaço para desenvolver ideias,
-          compartilhar reflexões e reunir minhas criações
-          ao longo do tempo.
-        </p>
-
-      </div>
-
-      <a
-        class="button"
-        href="/sobre.html"
-      >
-        Conhecer mais →
-      </a>
-
-    </div>
-
-  </section>
-
-
-</main>
-
-
-
-<!-- CONTATO -->
-
-<footer id="contato">
-
-  <div>
-
-    <div class="brand">
-      Flady
-    </div>
-
-    <p>
-      Igor Ribeiro
-    </p>
-
-  </div>
-
-
-  <blockquote>
-    “Escrever é organizar o silêncio<br>
-    e transformar pensamento em mundo.”
-  </blockquote>
-
-
-  <div>
-
-    <p>
-      Contato e redes sociais
-    </p>
-
-    <p class="muted">
-      Adicione seus links aqui.
-    </p>
-
-  </div>
-
-
-  <small>
-    © 2026 Flady.
-    Todos os direitos reservados.
-  </small>
-
-</footer>
-
-
-
-<!-- NETLIFY IDENTITY -->
-
-<script
-  src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-></script>
-
-
-<!-- SCRIPT PRINCIPAL -->
-
-<script src="/script.js"></script>
-
-
-<!-- REDIRECIONAMENTO PARA O PAINEL -->
-
-<script>
-
-  if (window.netlifyIdentity) {
-
-    window.netlifyIdentity.on("init", user => {
-
-      if (!user) {
-
-        window.netlifyIdentity.on("login", () => {
-
-          document.location.href = "/admin/";
-
-        });
-
-      }
-
-    });
-
-  }
-
-</script>
-
-
-</body>
-
-</html>  </nav>
-
-</header>
-
-
-<main>
-
-
-  <!-- INÍCIO -->
-
-  <section
-    class="hero"
-    id="inicio"
-  >
-
-    <div class="hero-overlay"></div>
-
-    <div class="hero-content">
-
-      <p class="eyebrow">
-        BEM-VINDO AO
-      </p>
-
-      <h1>
-        Flady
-      </h1>
-
-      <div class="line"></div>
-
-      <h2>
-        Um espaço para ideias,<br>
-        reflexões e criação.
-      </h2>
-
-      <p>
-        Aqui você encontra artigos, textos e pensamentos sobre
-        Direito, sociedade, cultura, universidade e tudo aquilo
-        que desperta questionamentos e inspira novas perspectivas.
-      </p>
-
-      <a
-        class="button"
-        href="#artigos"
-      >
-        Explorar artigos <span>→</span>
-      </a>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- ARTIGOS MAIS RECENTES -->
-
-  <section
-    class="section"
-    id="artigos"
-  >
-
-    <div class="section-heading">
-
-      <h2>
-        Artigos recentes
-      </h2>
-
-      <a href="/artigos.html">
-        Ver todos →
-      </a>
-
-    </div>
-
-
-    <div class="article-grid">
-
-      {% for artigo in collections.artigos | reverse %}
-
-        {% if loop.index <= 3 %}
-
-          <article class="card">
-
-            {% if artigo.data.image %}
-
-              <img
-                class="card-image"
-                src="{{ artigo.data.image }}"
-                alt="Imagem de capa de {{ artigo.data.title }}"
-              >
-
-            {% else %}
-
-              <div class="card-image image-reflexoes"></div>
-
-            {% endif %}
-
-
-            <div class="card-body">
-
-              <span class="tag">
-                {{ artigo.data.category }}
-              </span>
-
-
-              <h3>
-                {{ artigo.data.title }}
-              </h3>
-
-
-              {% if artigo.data.description %}
-
-                <p>
-                  {{ artigo.data.description }}
-                </p>
-
-              {% endif %}
-
-
-              <a
-                class="button"
-                href="{{ artigo.url }}"
-              >
-                Ler artigo →
-              </a>
-
-            </div>
-
-          </article>
-
-        {% endif %}
-
-      {% endfor %}
-
-    </div>
-
-
-    {% if collections.artigos.length == 0 %}
-
-      <p class="muted">
-        Os primeiros artigos serão publicados em breve.
-      </p>
-
-    {% endif %}
-
-  </section>
-
-
-
-  <!-- CATEGORIAS -->
-
-  <section
-    class="section categories"
-    id="categorias"
-  >
-
-    <h2>
-      Categorias
-    </h2>
-
-    <div class="category-grid">
-
-      <a href="/artigos.html#direito">
-        <b>⚖</b>
-        <span>Direito</span>
-      </a>
-
-      <a href="/artigos.html#sociedade">
-        <b>◎</b>
-        <span>Sociedade</span>
-      </a>
-
-      <a href="/artigos.html#universidade">
-        <b>▤</b>
-        <span>Universidade</span>
-      </a>
-
-      <a href="/artigos.html#reflexoes">
-        <b>◇</b>
-        <span>Reflexões</span>
-      </a>
-
-      <a href="/artigos.html#cultura">
-        <b>◉</b>
-        <span>Cultura</span>
-      </a>
-
-      <a href="/artigos.html#opiniao">
-        <b>•••</b>
-        <span>Opinião</span>
-      </a>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- SOBRE -->
-
   <section
     class="section"
     id="sobre"
@@ -700,318 +392,4 @@ permalink: /index.html
 
 </body>
 
-</html>
-    </div>
-  </section>
-
-
-  <!-- ARTIGOS -->
-  <section class="section" id="artigos">
-
-    <div class="section-heading">
-
-      <h2>Artigos em destaque</h2>
-
-      <a href="artigos.html">
-        Ver todos →
-      </a>
-
-    </div>
-
-    <div class="article-grid">
-
-      <article class="card">
-
-        <div class="card-image image-sociedade"></div>
-
-        <div class="card-body">
-
-          <span class="tag">
-            Sociedade
-          </span>
-
-          <h3>
-            Entre o individual e o coletivo:
-            notas sobre a vida em sociedade
-          </h3>
-
-          <p>
-            Reflexões sobre como nos relacionamos e construímos
-            sentido em meio às contradições do mundo contemporâneo.
-          </p>
-
-          <small>
-            Texto de demonstração · 6 min de leitura
-          </small>
-
-        </div>
-      </article>
-
-
-      <article class="card">
-
-        <div class="card-image image-direito"></div>
-
-        <div class="card-body">
-
-          <span class="tag">
-            Direito
-          </span>
-
-          <h3>
-            Direito, justiça e realidade:
-            para além dos códigos
-          </h3>
-
-          <p>
-            Um espaço para pensar os limites da norma jurídica
-            diante da complexidade das relações humanas.
-          </p>
-
-          <small>
-            Texto de demonstração · 8 min de leitura
-          </small>
-
-        </div>
-      </article>
-
-
-      <article class="card">
-
-        <div class="card-image image-reflexoes"></div>
-
-        <div class="card-body">
-
-          <span class="tag">
-            Reflexões
-          </span>
-
-          <h3>
-            O ócio como resistência
-            em tempos de produtividade
-          </h3>
-
-          <p>
-            Pensamentos sobre o valor do descanso, do tempo
-            e da presença em uma sociedade que não para de correr.
-          </p>
-
-          <small>
-            Texto de demonstração · 5 min de leitura
-          </small>
-
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-
-  <!-- CATEGORIAS -->
-  <section
-    class="section categories"
-    id="categorias"
-  >
-
-    <h2>Categorias</h2>
-
-    <div class="category-grid">
-
-      <a href="artigos.html#direito">
-        <b>⚖</b>
-        <span>Direito</span>
-      </a>
-
-      <a href="artigos.html#sociedade">
-        <b>◎</b>
-        <span>Sociedade</span>
-      </a>
-
-      <a href="artigos.html#universidade">
-        <b>▤</b>
-        <span>Universidade</span>
-      </a>
-
-      <a href="artigos.html#reflexoes">
-        <b>◇</b>
-        <span>Reflexões</span>
-      </a>
-
-      <a href="artigos.html#cultura">
-        <b>◉</b>
-        <span>Cultura</span>
-      </a>
-
-      <a href="artigos.html#opiniao">
-        <b>•••</b>
-        <span>Opinião</span>
-      </a>
-
-    </div>
-  </section>
-
-
-  <!-- SOBRE -->
-  <section
-    class="section"
-    id="sobre"
-  >
-
-    <div class="about">
-
-      <div class="avatar">
-        IR
-      </div>
-
-      <div>
-
-        <p class="eyebrow">
-          SOBRE O AUTOR
-        </p>
-
-        <h2>
-          Igor Ribeiro <em>(Flady)</em>
-        </h2>
-
-        <p>
-          Estudante de Direito e apaixonado por escrever.
-          Este é um espaço para desenvolver ideias,
-          compartilhar reflexões e reunir minhas criações
-          ao longo do tempo.
-        </p>
-
-      </div>
-
-      <a
-        class="button"
-        href="sobre.html"
-      >
-        Conhecer mais →
-      </a>
-
-    </div>
-  </section>
-
-</main>
-
-
-<!-- CONTATO -->
-<footer id="contato">
-
-  <div>
-
-    <div class="brand">
-      Flady
-    </div>
-
-    <p>
-      Igor Ribeiro
-    </p>
-
-  </div>
-
-
-  <blockquote>
-    “Escrever é organizar o silêncio<br>
-    e transformar pensamento em mundo.”
-  </blockquote>
-
-
-  <div>
-
-    <p>
-      Contato e redes sociais
-    </p>
-
-    <p class="muted">
-      Adicione seus links aqui.
-    </p>
-
-  </div>
-
-
-  <small>
-    © 2026 Flady.
-    Todos os direitos reservados.
-  </small>
-
-</footer>
-
-
-<!-- NETLIFY IDENTITY -->
-<script
-  src="https://identity.netlify.com/v1/netlify-identity-widget.js">
-</script>
-
-
-<!-- SCRIPT PRINCIPAL -->
-<script src="script.js"></script>
-
-
-<!-- REDIRECIONAMENTO PARA O PAINEL -->
-<script>
-
-  if (window.netlifyIdentity) {
-
-    window.netlifyIdentity.on("init", user => {
-
-      if (!user) {
-
-        window.netlifyIdentity.on("login", () => {
-
-          document.location.href = "/admin/";
-
-        });
-
-      }
-
-    });
-
-  }
-
-</script>
-
-
-</body>
-</html>
-  <section class="section categories" id="categorias">
-    <h2>Categorias</h2>
-    <div class="category-grid">
-      <a href="artigos.html#direito"><b>⚖</b><span>Direito</span></a>
-      <a href="artigos.html#sociedade"><b>◎</b><span>Sociedade</span></a>
-      <a href="artigos.html#universidade"><b>▤</b><span>Universidade</span></a>
-      <a href="artigos.html#reflexoes"><b>◇</b><span>Reflexões</span></a>
-      <a href="artigos.html#cultura"><b>◉</b><span>Cultura</span></a>
-      <a href="artigos.html#opiniao"><b>•••</b><span>Opinião</span></a>
-    </div>
-  </section>
-
-  <section class="section" id="sobre">
-    <div class="about">
-      <div class="avatar">IR</div>
-      <div>
-        <p class="eyebrow">SOBRE O AUTOR</p>
-        <h2>Igor Ribeiro <em>(Flady)</em></h2>
-        <p>Estudante de Direito e apaixonado por escrever. Este é um espaço para desenvolver ideias, compartilhar reflexões e reunir minhas criações ao longo do tempo.</p>
-      </div>
-      <a class="button" href="sobre.html">Conhecer mais →</a>
-    </div>
-  </section>
-</main>
-
-<footer id="contato">
-  <div>
-    <div class="brand">Flady</div>
-    <p>Igor Ribeiro</p>
-  </div>
-  <blockquote>“Escrever é organizar o silêncio<br>e transformar pensamento em mundo.”</blockquote>
-  <div>
-    <p>Contato e redes sociais</p>
-    <p class="muted">Adicione seus links aqui.</p>
-  </div>
-  <small>© 2026 Flady. Todos os direitos reservados.</small>
-</footer>
-
-<script src="script.js"></script>
-</body>
 </html>
