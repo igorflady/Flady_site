@@ -130,59 +130,78 @@ permalink: /index.html
 
     <div class="article-grid">
 
-      {% for artigo in collections.artigos | reverse %}
+      {% assign artigosRecentes = collections.artigos | reverse %}
 
-        {% if loop.index <= 3 %}
+      {% for artigo in artigosRecentes limit:3 %}
 
-          <article class="card">
+        <article class="card">
 
-            {% if artigo.data.image %}
+          {% if artigo.data.image %}
 
-              <img
-                class="card-image"
-                src="{{ artigo.data.image }}"
-                alt="Imagem de capa de {{ artigo.data.title }}"
-              >
+            <img
+              class="card-image"
+              src="{{ artigo.data.image }}"
+              alt="Imagem de capa de {{ artigo.data.title }}"
+            >
 
-            {% else %}
+          {% else %}
 
-              <div
-                class="card-image image-reflexoes"
-              ></div>
+            <div class="card-image image-reflexoes"></div>
 
-            {% endif %}
+          {% endif %}
 
 
-            <div class="card-body">
+          <div class="card-body">
+
+            <!-- CATEGORIAS NOVAS E ANTIGAS -->
+
+            {% if artigo.data.categories %}
+
+              <div class="card-tags">
+
+                {% for categoria in artigo.data.categories %}
+
+                  <span class="tag">
+                    {{ categoria }}
+                  </span>
+
+                {% endfor %}
+
+              </div>
+
+            {% elsif artigo.data.category %}
 
               <span class="tag">
                 {{ artigo.data.category }}
               </span>
 
-              <h3>
-                {{ artigo.data.title }}
-              </h3>
+            {% endif %}
 
-              {% if artigo.data.description %}
 
-                <p>
-                  {{ artigo.data.description }}
-                </p>
+            <h3>
+              {{ artigo.data.title }}
+            </h3>
 
-              {% endif %}
 
-              <a
-                class="button"
-                href="{{ artigo.url }}"
-              >
-                Ler artigo →
-              </a>
+            {% if artigo.data.description %}
 
-            </div>
+              <p>
+                {{ artigo.data.description }}
+              </p>
 
-          </article>
+            {% endif %}
 
-        {% endif %}
+
+            <a
+              class="button"
+              href="{{ artigo.url }}"
+            >
+              Ler artigo →
+            </a>
+
+          </div>
+
+        </article>
 
       {% endfor %}
 
