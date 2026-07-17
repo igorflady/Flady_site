@@ -60,9 +60,25 @@
 
       <header class="artigo-cabecalho">
 
-        <p class="eyebrow">
-          {{ category }}
-        </p>
+        <div class="artigo-categorias">
+
+          {% if categories %}
+
+            {% for categoria in categories %}
+              <span class="eyebrow">
+                {{ categoria }}
+              </span>
+            {% endfor %}
+
+          {% elseif category %}
+
+            <span class="eyebrow">
+              {{ category }}
+            </span>
+
+          {% endif %}
+
+        </div>
 
         <h1>
           {{ title }}
@@ -99,6 +115,53 @@
         {{ content | safe }}
 
       </div>
+
+
+      {% if pdf %}
+
+        <div class="artigo-pdf">
+
+          <p>
+            Este conteúdo possui um documento em PDF disponível.
+          </p>
+
+          <a
+            class="botao-pdf"
+            href="{{ pdf }}"
+            target="_blank"
+            rel="noopener"
+          >
+            Acessar PDF →
+          </a>
+
+        </div>
+
+      {% endif %}
+
+
+      {% if related_categories %}
+
+        <div class="artigo-temas-relacionados">
+
+          <p class="eyebrow">
+            Temas relacionados
+          </p>
+
+          <div class="lista-temas">
+
+            {% for tema in related_categories %}
+
+              <span class="tema-relacionado">
+                {{ tema }}
+              </span>
+
+            {% endfor %}
+
+          </div>
+
+        </div>
+
+      {% endif %}
 
     </article>
 
