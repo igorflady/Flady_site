@@ -21,6 +21,17 @@ export default function (eleventyConfig) {
 
   });
 
+  // Cria a coleção de categorias
+  eleventyConfig.addCollection("categorias", function (collectionApi) {
+
+    return collectionApi
+      .getFilteredByGlob("conteudo/categorias/*.md")
+      .sort((a, b) => {
+        return a.data.nome.localeCompare(b.data.nome, "pt-BR");
+      });
+
+  });
+
   return {
     dir: {
       input: ".",
@@ -28,4 +39,5 @@ export default function (eleventyConfig) {
       output: "_site"
     }
   };
+
 }
