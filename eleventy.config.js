@@ -10,6 +10,7 @@ export default function (eleventyConfig) {
   // Mantém o painel administrativo do Decap CMS
   eleventyConfig.addPassthroughCopy("admin");
 
+
   // Cria a coleção de artigos e organiza pela data de publicação
   eleventyConfig.addCollection("artigos", function (collectionApi) {
 
@@ -21,6 +22,7 @@ export default function (eleventyConfig) {
 
   });
 
+
   // Cria a coleção de categorias
   eleventyConfig.addCollection("categorias", function (collectionApi) {
 
@@ -31,6 +33,27 @@ export default function (eleventyConfig) {
       });
 
   });
+
+
+  // Cria a coleção de contatos e redes sociais
+  eleventyConfig.addCollection("contatos", function (collectionApi) {
+
+    return collectionApi
+      .getFilteredByGlob("conteudo/contatos/*.md")
+      .sort((a, b) => {
+
+        const nomeA = a.data.nome || "";
+        const nomeB = b.data.nome || "";
+
+        return nomeA.localeCompare(
+          nomeB,
+          "pt-BR"
+        );
+
+      });
+
+  });
+
 
   return {
     dir: {
