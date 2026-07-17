@@ -1,11 +1,12 @@
 ---
 title: "Cânhamo e sustentabilidade: perspectivas para um futuro de baixo carbono"
-date: 2026-07-17T15:11:00.000-03:00
+date: 2026-07-17T15:41:00.000-03:00
 categories:
   - Ambiental
 related_categories:
   - Reflexões
   - Ambiental
+  - " Direito"
 description: Uma reflexão sobre o potencial do cânhamo como alternativa
   sustentável, seus possíveis impactos ambientais e os desafios jurídicos
   relacionados ao seu desenvolvimento no Brasil
