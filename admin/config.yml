@@ -101,3 +101,33 @@ collections:
         widget: "string"
         required: false
         hint: "Você pode adicionar um símbolo ou emoji para representar esta categoria."
+
+
+  - name: "contatos"
+    label: "Contatos e redes sociais"
+    folder: "conteudo/contatos"
+    create: true
+    slug: "{{slug}}"
+
+    fields:
+      - label: "Nome"
+        name: "nome"
+        widget: "string"
+        hint: "Exemplo: Instagram, LinkedIn, E-mail ou outra rede."
+
+      - label: "Imagem ou ícone"
+        name: "imagem"
+        widget: "image"
+        required: false
+        hint: "Adicione uma imagem ou ícone para representar este contato."
+
+      - label: "Link"
+        name: "link"
+        widget: "string"
+        hint: "Adicione o endereço completo do seu perfil ou página."
+
+      - label: "Texto complementar"
+        name: "descricao"
+        widget: "string"
+        required: false
+        hint: "Opcional. Exemplo: @seuusuario ou uma breve identificação."
