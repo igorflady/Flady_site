@@ -605,3 +605,35 @@ footer small {
 
   margin-bottom: 16px;
 }
+/* ==================================================
+   RÓTULO "CATEGORIA" DOS CARDS
+   ================================================== */
+
+.card-categorias {
+  margin-bottom: 16px;
+}
+
+.card-categorias-label {
+  display: inline-block;
+
+  background: #6b5430;
+  color: #f1dfbc;
+
+  border-radius: 3px;
+
+  padding: 5px 8px;
+  margin-bottom: 9px;
+
+  font-size: .58rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  line-height: 1;
+
+  text-transform: uppercase;
+}
+
+/* As categorias ficam separadas do rótulo */
+
+.card-categorias .card-tags {
+  margin-bottom: 0;
+}
