@@ -1,1 +1,11 @@
-
+{
+  "name": "flady-site",
+  "version": "1.0.0",
+  "description": "Site pessoal de Igor Ribeiro (Flady)",
+  "scripts": {
+    "build": "eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2"
+  }
+}
