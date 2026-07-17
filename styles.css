@@ -547,3 +547,61 @@ footer small {
     padding: 22px;
   }
 }
+/* ==================================================
+   CATEGORIAS DOS CARDS
+   ================================================== */
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+.card-tags .tag {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+
+  background: transparent;
+  color: #d6a957;
+
+  border: 1px solid rgba(214, 169, 87, 0.45);
+  border-radius: 20px;
+
+  padding: 5px 10px;
+
+  font-size: .62rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  line-height: 1;
+
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Categoria única também segue o novo visual */
+
+.card-body > .tag {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+
+  background: transparent;
+  color: #d6a957;
+
+  border: 1px solid rgba(214, 169, 87, 0.45);
+  border-radius: 20px;
+
+  padding: 5px 10px;
+
+  font-size: .62rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  line-height: 1;
+
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  margin-bottom: 16px;
+}
