@@ -2,6 +2,7 @@
 title: "Cânhamo e sustentabilidade: perspectivas para um futuro de baixo carbono"
 date: 2026-07-17T15:41:00.000-03:00
 categories:
+  - Reflexões
   - Ambiental
 related_categories:
   - Reflexões
