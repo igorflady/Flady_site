@@ -889,3 +889,281 @@ footer small {
   }
 
 }
+/* ==================================================
+   CONTATO E REDES SOCIAIS
+   ================================================== */
+
+.contato {
+  padding-top: 55px;
+  padding-bottom: 65px;
+  border-top: 1px solid #24231f;
+  background: #0f0f0d;
+}
+
+.contato-cabecalho {
+  max-width: 620px;
+  margin-bottom: 32px;
+}
+
+.contato-cabecalho .eyebrow {
+  margin-bottom: 8px;
+}
+
+.contato-cabecalho h2 {
+  margin: 8px 0 10px;
+
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+
+.contato-cabecalho .muted {
+  margin: 0;
+
+  line-height: 1.65;
+}
+
+
+/* Grade dos contatos */
+
+.contato-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+
+/* Cada rede social */
+
+.contato-item {
+  min-height: 92px;
+
+  display: grid;
+
+  grid-template-columns:
+    auto 1fr auto;
+
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 16px 18px;
+
+  background: #141412;
+
+  border: 1px solid #34332e;
+  border-radius: 8px;
+}
+
+
+/* Área da imagem */
+
+.contato-icone {
+  width: 54px;
+  height: 54px;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  background: #1b1b18;
+
+  border: 1px solid #403e38;
+
+  /* A imagem é apenas visual */
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* Imagem cadastrada pelo painel ADM */
+
+.contato-icone img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+
+/* Nome e informação da rede */
+
+.contato-informacoes {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+
+.contato-nome {
+  color: #eee9df;
+
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+
+.contato-descricao {
+  color: #817e76;
+
+  font-size: .76rem;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* Botão que abre a rede social */
+
+.contato-acessar {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 10px 12px;
+
+  color: #d6a957;
+
+  border: 1px solid
+    rgba(214, 169, 87, .4);
+
+  border-radius: 5px;
+
+  text-decoration: none;
+
+  text-transform: uppercase;
+
+  font-size: .65rem;
+
+  letter-spacing: .08em;
+
+  white-space: nowrap;
+}
+
+
+/* Efeitos no computador */
+
+@media (hover: hover) and (pointer: fine) {
+
+  .contato-item {
+    transition:
+      border-color .2s ease,
+      background .2s ease;
+  }
+
+  .contato-item:hover {
+    border-color:
+      rgba(214, 169, 87, .45);
+
+    background: #171713;
+  }
+
+  .contato-acessar {
+    transition:
+      background .2s ease,
+      color .2s ease,
+      border-color .2s ease;
+  }
+
+  .contato-acessar:hover {
+    background: #d6a957;
+
+    border-color: #d6a957;
+
+    color: #0c0c0b;
+  }
+
+}
+
+
+/* ==================================================
+   CONTATO NO CELULAR
+   ================================================== */
+
+@media (max-width: 800px) {
+
+  .contato {
+    padding-top: 45px;
+    padding-bottom: 55px;
+  }
+
+
+  .contato-cabecalho h2 {
+    font-size: 2rem;
+  }
+
+
+  .contato-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .contato-item {
+    grid-template-columns:
+      auto 1fr auto;
+
+    gap: 12px;
+
+    padding: 14px;
+  }
+
+
+  .contato-icone {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 10px;
+  }
+
+
+  .contato-nome {
+    font-size: 1.15rem;
+  }
+
+
+  .contato-acessar {
+    padding: 9px 10px;
+
+    font-size: .6rem;
+  }
+
+}
+
+
+/* Celulares muito pequenos */
+
+@media (max-width: 430px) {
+
+  .contato-item {
+    grid-template-columns:
+      auto 1fr;
+  }
+
+
+  .contato-acessar {
+    grid-column: 1 / -1;
+
+    justify-content: center;
+
+    width: 100%;
+
+    margin-top: 3px;
+  }
+
+}
