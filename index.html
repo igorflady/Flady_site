@@ -153,27 +153,49 @@ permalink: /index.html
 
           <div class="card-body">
 
-            <!-- CATEGORIAS NOVAS E ANTIGAS -->
+
+            <!-- CATEGORIAS PRINCIPAIS -->
 
             {% if artigo.data.categories %}
 
-              <div class="card-tags">
+              <div class="card-categorias">
 
-                {% for categoria in artigo.data.categories %}
+                <span class="card-categorias-label">
+                  Categoria
+                </span>
 
-                  <span class="tag">
-                    {{ categoria }}
-                  </span>
+                <div class="card-tags">
 
-                {% endfor %}
+                  {% for categoria in artigo.data.categories %}
+
+                    <span class="tag">
+                      {{ categoria }}
+                    </span>
+
+                  {% endfor %}
+
+                </div>
 
               </div>
 
+
             {% elsif artigo.data.category %}
 
-              <span class="tag">
-                {{ artigo.data.category }}
-              </span>
+              <div class="card-categorias">
+
+                <span class="card-categorias-label">
+                  Categoria
+                </span>
+
+                <div class="card-tags">
+
+                  <span class="tag">
+                    {{ artigo.data.category }}
+                  </span>
+
+                </div>
+
+              </div>
 
             {% endif %}
 
