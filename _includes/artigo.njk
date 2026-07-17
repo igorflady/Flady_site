@@ -1,1 +1,147 @@
+<!doctype html>
+<html lang="pt-BR">
 
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>{{ title }} — Flady</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&family=Italiana&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+
+<body>
+
+  <header class="site-header">
+
+    <a
+      class="brand"
+      href="/"
+    >
+      Flady
+    </a>
+
+    <nav class="nav">
+
+      <a href="/">
+        Início
+      </a>
+
+      <a href="/artigos.html">
+        Artigos
+      </a>
+
+    </nav>
+
+  </header>
+
+
+  <main class="section">
+
+    <article class="artigo-completo">
+
+      <header class="artigo-cabecalho">
+
+        <p class="eyebrow">
+          {{ category }}
+        </p>
+
+        <h1>
+          {{ title }}
+        </h1>
+
+        {% if description %}
+
+          <p class="artigo-descricao">
+            {{ description }}
+          </p>
+
+        {% endif %}
+
+        <p class="muted">
+          Por Igor Ribeiro
+        </p>
+
+      </header>
+
+
+      {% if image %}
+
+        <img
+          class="artigo-capa"
+          src="{{ image }}"
+          alt="Imagem de capa do artigo {{ title }}"
+        >
+
+      {% endif %}
+
+
+      <div class="artigo-conteudo">
+
+        {{ content | safe }}
+
+      </div>
+
+    </article>
+
+  </main>
+
+
+  <footer>
+
+    <div>
+
+      <div class="brand">
+        Flady
+      </div>
+
+      <p>
+        Igor Ribeiro
+      </p>
+
+    </div>
+
+
+    <blockquote>
+      “Escrever é organizar o silêncio
+      e transformar pensamento em mundo.”
+    </blockquote>
+
+
+    <div>
+
+      <p>
+        Artigos, reflexões e criações.
+      </p>
+
+    </div>
+
+
+    <small>
+      © 2026 Flady.
+      Todos os direitos reservados.
+    </small>
+
+  </footer>
+
+</body>
+
+</html>
