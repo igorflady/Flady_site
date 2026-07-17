@@ -1,1 +1,196 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Artigos — Flady</title><link rel="stylesheet" href="styles.css"></head><body><header class="site-header"><a class="brand" href="index.html">Flady</a><nav class="nav"><a href="index.html">Início</a></nav></header><main class="section"><p class="eyebrow">ARQUIVO</p><h1 style="font-family:serif;font-size:3rem">Todos os artigos</h1><p class="muted">Esta página está pronta para receber seus artigos. Na próxima etapa, podemos conectar o site a um sistema de publicação para você adicionar e editar textos sem mexer no código.</p></main></body></html>
+---
+pagination:
+  data: collections.artigos
+  size: 100
+  alias: artigos
+permalink: /artigos.html
+---
+
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="description"
+    content="Todos os artigos publicados no Flady."
+  >
+
+  <title>Artigos — Flady</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&family=Italiana&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+
+<body>
+
+  <header class="site-header">
+
+    <a
+      class="brand"
+      href="/"
+    >
+      Flady
+    </a>
+
+    <nav class="nav">
+
+      <a href="/">
+        Início
+      </a>
+
+      <a
+        href="/artigos.html"
+        class="active"
+      >
+        Artigos
+      </a>
+
+    </nav>
+
+  </header>
+
+
+  <main class="section">
+
+    <p class="eyebrow">
+      ARQUIVO
+    </p>
+
+    <h1 class="pagina-titulo">
+      Todos os artigos
+    </h1>
+
+    <p class="muted">
+      Textos, reflexões e ideias publicadas no Flady.
+    </p>
+
+
+    <div class="article-grid">
+
+      {% for artigo in collections.artigos | reverse %}
+
+        <article class="card">
+
+          {% if artigo.data.image %}
+
+            <img
+              class="card-image"
+              src="{{ artigo.data.image }}"
+              alt="Imagem de capa de {{ artigo.data.title }}"
+            >
+
+          {% else %}
+
+            <div class="card-image image-reflexoes"></div>
+
+          {% endif %}
+
+
+          <div class="card-body">
+
+            <span class="tag">
+              {{ artigo.data.category }}
+            </span>
+
+
+            <h3>
+              {{ artigo.data.title }}
+            </h3>
+
+
+            {% if artigo.data.description %}
+
+              <p>
+                {{ artigo.data.description }}
+              </p>
+
+            {% endif %}
+
+
+            <a
+              class="button"
+              href="{{ artigo.url }}"
+            >
+              Ler artigo →
+            </a>
+
+          </div>
+
+        </article>
+
+      {% endfor %}
+
+    </div>
+
+
+    {% if collections.artigos.length == 0 %}
+
+      <p class="muted">
+        Nenhum artigo publicado ainda.
+      </p>
+
+    {% endif %}
+
+  </main>
+
+
+  <footer>
+
+    <div>
+
+      <div class="brand">
+        Flady
+      </div>
+
+      <p>
+        Igor Ribeiro
+      </p>
+
+    </div>
+
+
+    <blockquote>
+      “Escrever é organizar o silêncio
+      e transformar pensamento em mundo.”
+    </blockquote>
+
+
+    <div>
+
+      <p>
+        Artigos, reflexões e criações.
+      </p>
+
+    </div>
+
+
+    <small>
+      © 2026 Flady.
+      Todos os direitos reservados.
+    </small>
+
+  </footer>
+
+</body>
+
+</html>
