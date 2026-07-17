@@ -10,9 +10,15 @@ export default function (eleventyConfig) {
   // Mantém o painel administrativo do Decap CMS
   eleventyConfig.addPassthroughCopy("admin");
 
-  // Cria automaticamente a coleção de artigos
+  // Cria a coleção de artigos e organiza pela data de publicação
   eleventyConfig.addCollection("artigos", function (collectionApi) {
-    return collectionApi.getFilteredByGlob("conteudo/artigos/*.md");
+
+    return collectionApi
+      .getFilteredByGlob("conteudo/artigos/*.md")
+      .sort((a, b) => {
+        return new Date(a.data.date) - new Date(b.data.date);
+      });
+
   });
 
   return {
